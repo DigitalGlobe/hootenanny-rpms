@@ -33,7 +33,7 @@ USER root
 COPY scripts/pgdg-repo.sh /tmp/pgdg-repo.sh
 RUN /tmp/pgdg-repo.sh ${pg_version} && \
     rm /tmp/pgdg-repo.sh && \
-    yum -q -y install postgresql${pg_version}-devel && \
+    yum -q -y install postgresql${pg_version}-devel-13.15 && \
     alternatives --install /usr/bin/pg_config pgsql-pg_config /usr/pgsql-${pg_version}/bin/pg_config 500 && \
     if [ -n "${packages:-}" ]; then yum -q -y install ${packages}; fi && \
     yum -q -y clean all

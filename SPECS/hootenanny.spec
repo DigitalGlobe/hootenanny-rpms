@@ -111,7 +111,7 @@ BuildRequires:  libxslt
 BuildRequires:  maven
 BuildRequires:  nodejs-devel
 BuildRequires:  opencv-devel
-BuildRequires:  postgresql%{pg_dotless}-devel
+BuildRequires:  postgresql%{pg_dotless}-devel-13.15
 BuildRequires:  proj-devel
 BuildRequires:  protobuf-devel
 BuildRequires:  python-argparse
