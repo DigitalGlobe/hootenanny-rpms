@@ -24,13 +24,17 @@ ARG packages
 ARG mocha_version
 ARG nodejs_version
 ARG v8_version
+ARG pg_version
 
 # Install Hootenanny dependency release repository and NodeJS.
 COPY scripts/hoot-repo.sh \
      scripts/nodejs-install.sh \
+     scripts/pgdg-repo.sh \
      /tmp/
 RUN /tmp/hoot-repo.sh && \
     rm /tmp/hoot-repo.sh && \
+    /tmp/pgdg-repo.sh ${pg_version} && \
+    rm /tmp/pgdg-repo.sh && \
     /tmp/nodejs-install.sh ${nodejs_version} ${v8_version} && \
     rm -f /tmp/nodejs-install.sh && \
     npm install --silent -g mocha@${mocha_version}
