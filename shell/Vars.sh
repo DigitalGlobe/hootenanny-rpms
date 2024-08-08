@@ -78,7 +78,6 @@ MAVEN_CACHE_SHA1=$( config_version maven_cache_sha1 )
 MOCHA_VERSION=$( config_version mocha )
 
 # PostgreSQL version
-PG_DEVEL_VERSION=$( config_version pg_devel )
 PG_VERSION=$( config_version pg )
 PG_DOTLESS=$(echo $PG_VERSION | tr -d '.')
 
@@ -167,7 +166,6 @@ function build_base_images() {
     # requested version.
     docker build \
            --build-arg pg_version=$PG_VERSION \
-           --build-arg pg_devel_version=$PG_DEVEL_VERSION \
            -f $SCRIPT_HOME/docker/Dockerfile.rpmbuild-pgdg \
            -t hootenanny/rpmbuild-pgdg:$PG_VERSION \
            $SCRIPT_HOME
