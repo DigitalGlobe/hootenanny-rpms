@@ -19,8 +19,8 @@ PG_DOTLESS=$(echo $PG_VERSION | tr -d '.')
 
 # Install PostgreSQL server and contrib package (for hstore).
 yum -q -y install \
-    postgresql$PG_DOTLESS-contrib-13.15 \
-    postgresql$PG_DOTLESS-server-13.15
+    postgresql$PG_DOTLESS-contrib \
+    postgresql$PG_DOTLESS-server
 
 # Install alternatives for `initdb` and `pg_ctl` so we won't have to
 # muck with $PATH.
