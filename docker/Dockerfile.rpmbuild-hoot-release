@@ -42,7 +42,8 @@ RUN /tmp/geoint-repo.sh && \
     /tmp/hoot-repo.sh && \
     /tmp/nodejs-install.sh ${nodejs_version} ${v8_version} && \
     rm -f /tmp/*.sh && \
-    npm install --silent -g mocha@${mocha_version}
+    npm install --silent -g mocha@${mocha_version} && \
+    yum -q -y install postgresql${pg_version}-devel-13.15
 
 # Install Hootenanny dependencies.
 RUN yum install -y -q dumb-init su-exec tomcat8 && \
