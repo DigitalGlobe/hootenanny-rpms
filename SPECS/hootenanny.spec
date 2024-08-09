@@ -346,8 +346,8 @@ Requires:  %{name}-core = %{version}-%{release}
 Requires:  java-1.8.0-openjdk
 Requires:  liquibase
 Requires:  osmosis
-Requires:  postgresql%{pg_dotless}-contrib
-Requires:  postgresql%{pg_dotless}-server
+Requires:  postgresql%{pg_dotless}-contrib-13.15
+Requires:  postgresql%{pg_dotless}-server-13.15
 Requires:  tomcat8 < %{tomcat_version_max}
 Requires:  tomcat8 >= %{tomcat_version_min}
 
@@ -697,9 +697,9 @@ Requires:  %{name}-core-devel-deps = %{version}-%{release}
 Requires:  liquibase
 Requires:  maven
 Requires:  nodejs-devel = %{nodejs_epoch}:%{nodejs_version}
-Requires:  postgresql%{pg_dotless}-devel
-Requires:  postgresql%{pg_dotless}-server
-Requires:  postgresql%{pg_dotless}-contrib
+Requires:  postgresql%{pg_dotless}-devel-13.15
+Requires:  postgresql%{pg_dotless}-server-13.15
+Requires:  postgresql%{pg_dotless}-contrib-13.15
 
 %description services-devel-deps
 Hootenanny was developed to provide an open source, standards-based approach to
@@ -811,7 +811,7 @@ Requires:  hoot-words
 Requires:  libicu-devel
 Requires:  nodejs-devel = %{nodejs_epoch}:%{nodejs_version}
 Requires:  opencv-devel
-Requires:  postgresql%{pg_dotless}-devel
+Requires:  postgresql%{pg_dotless}-devel-13.15
 Requires:  proj-devel
 Requires:  protobuf-devel
 Requires:  python-argparse
