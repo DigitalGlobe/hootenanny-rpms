@@ -47,6 +47,7 @@ if [ "$NUM_RPMS" = "0" ]; then
     sudo chown -R 1000:1000 cache el7 RPMS SOURCES
 
     # Build the RPM and copy RPMs into workspace folder.
+    echo "building hoot"
     ./shell/BuildHoot.sh
     sudo mv -v RPMS/{noarch,x86_64}/*.rpm el7
 else
