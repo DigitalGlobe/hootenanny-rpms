@@ -28,7 +28,7 @@ mkdir -p cache/m2 cache/npm el7 RPMS
 # Determine what the latest master archive is.
 LATEST_ARCHIVE="$(./scripts/latest-archive.sh -b "$ARCHIVE_BUCKET" -p "$ARCHIVE_PREFIX")"
 
-echo "debug"
+echo "debug again"
 
 # Query the master repository for number of RPMs with the
 # archive's git hash.
