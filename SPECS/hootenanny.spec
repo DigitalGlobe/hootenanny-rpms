@@ -144,7 +144,7 @@ content, geometry and attributes, to transfer to the output map.
 Summary:   Hootenanny Core
 Requires:  %{name}-core-deps = %{version}-%{release}
 Requires:  nodejs = %{nodejs_epoch}:%{nodejs_version}
-Requires:  postgresql%{pg_dotless}-libs
+Requires:  postgresql%{pg_dotless}-libs-13.15
 Group:      Applications/Engineering
 
 %description core
@@ -864,7 +864,7 @@ Requires:  libpostal
 Requires:  libpostal-data
 Requires:  nodejs = %{nodejs_epoch}:%{nodejs_version}
 Requires:  opencv
-Requires:  postgresql%{pg_dotless}-libs
+Requires:  postgresql%{pg_dotless}-libs-13.15
 Requires:  protobuf
 Requires:  python-matplotlib
 Requires:  qt5-qtbase
