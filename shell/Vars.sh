@@ -17,7 +17,7 @@
 # The rpm-build apt package is required when on Ubuntu because we treat the
 # *.spec files as a source of truth for version information and
 # `rpm` and `rpmspec` are necessary to intrepret them from macros.
-if ! test -x /usr/bin/rpmbuild; then
+if ! test -x /usr/local/bin/rpmbuild; then
     echo "This script requires the 'rpm' package (Ubuntu) or 'rpm-build' (CentOS)"
     exit 1
 fi
@@ -80,6 +80,8 @@ MOCHA_VERSION=$( config_version mocha )
 # PostgreSQL version
 PG_VERSION=$( config_version pg )
 PG_DOTLESS=$(echo $PG_VERSION | tr -d '.')
+
+V8_VERSION=$( config_version v8 )
 
 ## Package versioning variables.
 RPMBUILD_DIST=$( config_version rpmbuild_dist )
@@ -314,6 +316,7 @@ function run_hoot_build_image() {
     else
         mkdir -p $SCRIPT_HOME/hootenanny $RPMS $CACHE/m2 $CACHE/npm
         maven_cache
+        echo "SPECS: $SPECS"
         docker run \
                -v $SOURCES:/rpmbuild/SOURCES:$sources_mode \
                -v $SPECS:/rpmbuild/SPECS:ro \
