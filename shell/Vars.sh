@@ -17,7 +17,7 @@
 # The rpm-build apt package is required when on Ubuntu because we treat the
 # *.spec files as a source of truth for version information and
 # `rpm` and `rpmspec` are necessary to intrepret them from macros.
-if ! test -x /usr/local/bin/rpmbuild; then
+if ! test -x /usr/bin/rpmbuild; then
     echo "This script requires the 'rpm' package (Ubuntu) or 'rpm-build' (CentOS)"
     exit 1
 fi
