@@ -17,8 +17,6 @@ set -euo pipefail
 
 PG_DOTLESS=$(echo $PG_VERSION | tr -d '.')
 
-echo ${psql --version}
-
 # Install PostgreSQL server and contrib package (for hstore).
 yum -q -y install \
     postgresql$PG_DOTLESS-contrib-13.15 \
