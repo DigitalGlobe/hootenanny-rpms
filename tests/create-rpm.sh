@@ -28,8 +28,6 @@ mkdir -p cache/m2 cache/npm el7 RPMS
 # Determine what the latest master archive is.
 LATEST_ARCHIVE="$(./scripts/latest-archive.sh -b "$ARCHIVE_BUCKET" -p "$ARCHIVE_PREFIX")"
 
-echo "debug again"
-
 # Query the master repository for number of RPMs with the
 # archive's git hash.
 NUM_RPMS="$(./scripts/query-archive.sh -a "$LATEST_ARCHIVE" -b "$REPO_BUCKET" -p "$REPO_PREFIX")"
@@ -47,7 +45,6 @@ if [ "$NUM_RPMS" = "0" ]; then
     sudo chown -R 1000:1000 cache el7 RPMS SOURCES
 
     # Build the RPM and copy RPMs into workspace folder.
-    echo "building hoot"
     ./shell/BuildHoot.sh
     sudo mv -v RPMS/{noarch,x86_64}/*.rpm el7
 else
