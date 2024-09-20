@@ -21,6 +21,9 @@ LABEL \
   vendor="Radiant Solutions"
 
 # Install EPEL, ShellCheck, and yamllint.
+RUN sed -i s/mirror.centos.org/vault.centos.org/g /etc/yum.repos.d/*.repo && \
+     sed -i s/^#.*baseurl=http/baseurl=http/g /etc/yum.repos.d/*.repo && \
+     sed -i s/^mirrorlist=http/#mirrorlist=http/g /etc/yum.repos.d/*.repo
 RUN yum -q -y update && \
     yum -q -y install epel-release && \
     yum -q -y install yamllint ShellCheck && \
