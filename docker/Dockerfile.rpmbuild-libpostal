@@ -26,6 +26,9 @@ USER root
 # Install blas and create a data directory in /usr/share for libpostal
 # that's writable by the rpmbuild user.  Unfortunately, it's impossible
 # to test the program without using the global data directory :(
+RUN sed -i s/mirror.centos.org/vault.centos.org/g /etc/yum.repos.d/*.repo && \
+  sed -i s/^#.*baseurl=http/baseurl=http/g /etc/yum.repos.d/*.repo && \
+  sed -i s/^mirrorlist=http/#mirrorlist=http/g /etc/yum.repos.d/*.repo
 RUN yum -q -y install atlas-devel && \
     yum -q -y clean all && \
     mkdir -p $libpostal_data && \
