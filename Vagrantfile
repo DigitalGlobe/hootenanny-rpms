@@ -205,6 +205,9 @@ def build_container(config, name, options)
 
       # Setting provisioner parameters.
       d.build_args = build_args
+      #Adding the platform specification here.
+      d.build_args << '--platform'
+      d.build_args << 'linux/amd64'
 
       # Set up basic container settings.
       d.dockerfile = options.fetch('dockerfile', "docker/Dockerfile.#{name}")
