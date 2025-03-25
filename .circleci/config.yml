@@ -33,7 +33,7 @@ jobs:
       - run:
           name: 'Building rpmbuild-hoot-release'
           command: |
-            make rpmbuild-hoot-release
+            MAVEN_CACHE=0 make rpmbuild-hoot-release
   master-rpm:
     machine:
       enabled: true
