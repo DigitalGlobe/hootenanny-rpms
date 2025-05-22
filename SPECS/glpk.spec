@@ -41,7 +41,7 @@ The GLPK package includes the following main components:
  * Branch-and-bound method.
  * Translator for GNU MathProg.
  * Application program interface (API).
- * Stand-alone LP/MIP solver. 
+ * Stand-alone LP/MIP solver.
 
 
 %package        doc
@@ -70,13 +70,13 @@ that uses GLPK (GNU Linear Programming Kit).
 
 
 %prep
-%setup -q
-%patch0 -p1 -b .system-zlib
+tup -q
+%patch -P 0 -p1 -b .system-zlib
 %{__rm} -rf src/zlib
-%patch1 -p1 -b .system-suitesparse
+%patch -P 1 -p1 -b .system-suitesparse
 %{__rm} -fr src/{amd,colamd}
-%patch2 -p1 -b .alias
-%patch3 -p1 -b .sagemath
+%patch -P 2 -p1 -b .alias
+%patch -P 3 -p1 -b .sagemath
 
 
 %build

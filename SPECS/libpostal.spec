@@ -85,12 +85,12 @@ libpostal library.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch -P 0 -p1
 %if %{with tests}
-%patch1 -p1
+%patch -P 1 -p1
 %endif
 %if %{with optimize_scanner}
-%patch2 -p1
+%patch -P 2 -p1
 %endif
 
 

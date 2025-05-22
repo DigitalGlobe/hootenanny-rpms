@@ -16,8 +16,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Default commands for Docker and Vagrant.
-DOCKER ?= docker
-VAGRANT ?= vagrant
+DOCKER ?= DOCKER_DEFAULT_PLATFORM=linux/amd64 docker
+VAGRANT ?= DOCKER_DEFAULT_PLATFORM=linux/amd64 vagrant
 
 ## Macro functions.
 
