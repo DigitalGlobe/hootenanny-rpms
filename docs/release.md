@@ -28,8 +28,8 @@
    ```
    cd cache/m2/
    aws s3 cp s3://hoot-maven/m2-cache.tar.gz .
-   tar -xvf m2-cache.tar
-   rm m2-cache.tar
+   tar -xvf m2-cache.tar.gz
+   rm m2-cache.tar.gz
    ```
 
 1. Next, the release archive must be created.  Specify the
