@@ -133,6 +133,7 @@ RUN_IMAGE ?= run-base-release
 
 # Are there any archives?
 HOOT_VERSION_GEN ?= $(call latest_hoot_version_gen)
+# HOOT_VERSION_GEN := $(subst -,_,$(HOOT_VERSION_GEN))
 DEFAULT_ARCHIVE := SOURCES/hootenanny-archive.tar.gz
 
 HOOT_RELEASE ?= 1
