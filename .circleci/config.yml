@@ -113,6 +113,7 @@ workflows:
             branches:
               only:
                 - master
+                - rpmbuild-el9
   # Always run the RPM workflow on merges to master to take into account
   # any SPEC changes and to make it possible to force a RPM rebuild at
   # any time.
