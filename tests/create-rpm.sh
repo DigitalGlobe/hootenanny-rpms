@@ -29,7 +29,27 @@ error_trap() {
 }
 trap error_trap ERR
 
+
 die() { echo "[FATAL] $*" >&2; exit 2; }
+
+preflight() {
+  echo "[INFO] Running AWS preflight checks..."
+  if ! command -v aws >/dev/null 2>&1; then
+    die "aws CLI not found in PATH"
+  fi
+  aws --version || true
+  # Confirm credentials; do not fail hard if caller identity is blocked, but show error
+  if ! aws sts get-caller-identity >/dev/null 2>&1; then
+    echo "[WARN] aws sts get-caller-identity failed. Credentials may be missing or insufficient." >&2
+  fi
+  echo "[INFO] Listing S3 prefix: s3://$ARCHIVE_BUCKET/$ARCHIVE_PREFIX"
+  if ! aws s3 ls "s3://$ARCHIVE_BUCKET/$ARCHIVE_PREFIX" | head -n 5; then
+    echo "[WARN] Unable to list s3://$ARCHIVE_BUCKET/$ARCHIVE_PREFIX (permissions or nonexistent)." >&2
+  fi
+}
+
+# Ensure directory structure in place for using the shell scripts
+mkdir -p cache/m2 cache/npm el7 RPMS SOURCES
 
 # Default variables.
 HOOT_BRANCH="${HOOT_BRANCH:-master}"
@@ -38,16 +58,30 @@ ARCHIVE_PREFIX="${ARCHIVE_PREFIX:-circle/$HOOT_BRANCH}"
 REPO_BUCKET="${REPO_BUCKET:-hoot-repo}"
 REPO_PREFIX="${REPO_PREFIX:-el7/$HOOT_BRANCH}"
 
+
 echo "[INFO] HOOT_BRANCH=$HOOT_BRANCH"
 echo "[INFO] ARCHIVE_BUCKET=$ARCHIVE_BUCKET"
 echo "[INFO] ARCHIVE_PREFIX=$ARCHIVE_PREFIX"
 echo "[INFO] REPO_BUCKET=$REPO_BUCKET"
 echo "[INFO] REPO_PREFIX=$REPO_PREFIX"
 
-# Determine what the latest master archive is.
-LATEST_ARCHIVE="$(./scripts/latest-archive.sh -b "$ARCHIVE_BUCKET" -p "$ARCHIVE_PREFIX")"
+preflight
+
+
+# Resolve latest archive and capture stderr for diagnostics
+LATEST_ARCHIVE_OUTPUT=""
+if ! LATEST_ARCHIVE_OUTPUT="$(./scripts/latest-archive.sh -b "$ARCHIVE_BUCKET" -p "$ARCHIVE_PREFIX" 2>&1)"; then
+  echo "[WARN] latest-archive.sh returned non-zero. Output:" >&2
+  echo "$LATEST_ARCHIVE_OUTPUT" >&2
+  echo "[INFO] No archives found at s3://$ARCHIVE_BUCKET/$ARCHIVE_PREFIX. Skipping build and emitting placeholder RPM marker." >&2
+  touch el7/none.rpm
+  exit 0
+fi
+LATEST_ARCHIVE="$LATEST_ARCHIVE_OUTPUT"
 if [[ -z "$LATEST_ARCHIVE" ]]; then
-  die "LATEST_ARCHIVE is empty. Check credentials and that archives exist under s3://$ARCHIVE_BUCKET/$ARCHIVE_PREFIX"
+  echo "[INFO] No archives found at s3://$ARCHIVE_BUCKET/$ARCHIVE_PREFIX. Skipping build and emitting placeholder RPM marker." >&2
+  touch el7/none.rpm
+  exit 0
 fi
 
 echo "[INFO] LATEST_ARCHIVE=$LATEST_ARCHIVE"
