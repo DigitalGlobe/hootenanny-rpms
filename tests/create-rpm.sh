@@ -13,15 +13,21 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-set -euo pipefail
+set -Eeuo pipefail
 
 # Optional verbose debugging: set DEBUG=1 in the environment to enable xtrace
 if [[ "${DEBUG:-0}" == "1" ]]; then
   set -x
 fi
 
+
 # Helpful error trap to show the failing line and command
-trap 'ec=$?; echo "[ERROR] Exit $ec at line $LINENO while running: ${BASH_COMMAND}" >&2; exit $ec' ERR
+error_trap() {
+  local ec=$?
+  echo "[ERROR] Exit $ec at line $LINENO while running: ${BASH_COMMAND}" >&2
+  exit "$ec"
+}
+trap error_trap ERR
 
 die() { echo "[FATAL] $*" >&2; exit 2; }
 
